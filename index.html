@@ -1,0 +1,1765 @@
+here<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👑 GOJO SATRO KING | The Honored One</title>
+    <!-- استدعاء مكتبات التصميم والخلفيات -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;900&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+    <!-- ربط ملف التصميم الخارجي -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark">
+    <!-- خلفية النجوم -->
+    <div id="particles-js"></div>
+
+    <!-- أزرار التحكم العلوية -->
+    <div class="top-controls">
+        <div class="mode-toggle" onclick="toggleMode()" id="theme-btn">☀️</div>
+        <div class="profile-btn" onclick="openModal('profile')">👤</div>
+    </div>
+
+    <!-- حاوية الإشعارات -->
+    <div id="toast-container"></div>
+
+    <!-- شاشة الدومين إكسبانشن -->
+    <div id="domain-overlay">
+        <div class="domain-flash"></div>
+        <div class="domain-text">DOMAIN EXPANSION<br><span class="gold-text text-4xl">UNLIMITED VOID</span></div>
+    </div>
+
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="avatar-container">
+            <img src="https://i.pinimg.com/736x/8f/29/93/8f2993c99a3b1c2d6a9d3674e7a6c3f0.jpg" alt="Gojo Satoru">
+            <div class="avatar-glow"></div>
+        </div>
+        <h1 class="title-font gold-text">GOJO SATRO KING</h1>
+        <p class="subtitle" dir="ltr">THE ULTIMATE SYSTEM</p>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+
+        <!-- 1. الشاشة الرئيسية -->
+        <section id="sec-home" class="section active">
+            <div class="glass-panel text-center">
+                <h2 class="section-title">مرحباً بك يا ملك</h2>
+                <p class="section-desc">كل شيء في مملكتك تحت سيطرتك. اختر بحكمة.</p>
+                
+                <div class="dashboard-grid">
+                    <div class="dash-card" onclick="nav('sec-anime', document.querySelectorAll('.nav-btn')[1])">
+                        <span class="dash-icon">📺</span>
+                        <h3>الأنمي</h3>
+                        <p>50 أنمي بجودة عالية</p>
+                    </div>
+                    <div class="dash-card" onclick="nav('sec-chars', document.querySelectorAll('.nav-btn')[2])">
+                        <span class="dash-icon">⚔️</span>
+                        <h3>الشخصيات</h3>
+                        <p>قاعدة بيانات السحرة</p>
+                    </div>
+                    <div class="dash-card" onclick="nav('sec-tools', document.querySelectorAll('.nav-btn')[3])">
+                        <span class="dash-icon">⚙️</span>
+                        <h3>الأدوات</h3>
+                        <p>أدوات المطورين</p>
+                    </div>
+                    <div class="dash-card" onclick="nav('sec-games', document.querySelectorAll('.nav-btn')[4])">
+                        <span class="dash-icon">🎮</span>
+                        <h3>الألعاب</h3>
+                        <p>تحدي الذاكرة</p>
+                    </div>
+                </div>
+
+                <button onclick="triggerDomain()" class="btn-primary mt-8">🌌 تفعيل الدومين إكسبانشن</button>
+            </div>
+        </section>
+
+        <!-- 2. شاشة الأنمي -->
+        <section id="sec-anime" class="section">
+            <div class="section-header">
+                <h2 class="section-title">📺 مكتبة الأنمي</h2>
+                <input type="text" id="anime-search" placeholder="ابحث بالاسم العربي أو الإنجليزي..." class="search-bar" oninput="searchAnime()">
+            </div>
+            <div id="anime-grid" class="anime-grid">
+                <!-- سيتم توليد الكروت هنا بواسطة الجافاسكريبت -->
+            </div>
+        </section>
+
+        <!-- 3. شاشة الشخصيات -->
+        <section id="sec-chars" class="section">
+            <h2 class="section-title text-center">⚔️ قاعدة بيانات السحرة</h2>
+            <div id="chars-grid" class="chars-grid">
+                <!-- سيتم توليد كروت الشخصيات هنا -->
+            </div>
+            <div id="char-details" class="glass-panel mt-6 hidden"></div>
+        </section>
+
+        <!-- 4. شاشة الأدوات -->
+        <section id="sec-tools" class="section">
+            <h2 class="section-title text-center">⚙️ الأدوات الملكية</h2>
+            <div class="tools-grid">
+                
+                <div class="tool-card">
+                    <h3>🆔 مولد الهويات</h3>
+                    <p>إنشاء هويات وهمية للحسابات الاحتياطية.</p>
+                    <button onclick="genIdentity()" class="btn-primary">توليد</button>
+                    <div id="tool-id-result" class="result-box hidden"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🔑 مولد كلمات المرور</h3>
+                    <p>إنشاء كلمات مرور قوية وعشوائية.</p>
+                    <button onclick="genPassword()" class="btn-primary">توليد</button>
+                    <div id="tool-pass-result" class="result-box hidden"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🎨 مولد الألوان</h3>
+                    <p>إنشاء أكواد ألوان عشوائية للمصممين.</p>
+                    <button onclick="genColor()" class="btn-primary">توليد</button>
+                    <div id="tool-color-result" class="result-box hidden"></div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🎮 سكربتات روبلكس</h3>
+                    <p>مكتبة سكربتات جاهزة للنسخ (Auto-Farm).</p>
+                    <button onclick="copyScript()" class="btn-primary">نسخ سكربت DatThg</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 5. شاشة الألعاب -->
+        <section id="sec-games" class="section">
+            <h2 class="section-title text-center">🎮 تحدي الذاكرة</h2>
+            <div class="glass-panel text-center">
+                <div class="stats-bar">
+                    <span>الحركات: <strong id="memory-moves">0</strong></span>
+                    <button onclick="resetMemoryGame()" class="btn-secondary text-xs">إعادة تشغيل</button>
+                </div>
+                <div id="memory-board" class="memory-grid">
+                    <!-- سيتم توليد الكروت هنا -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="main-footer">
+        <p>تحت إشراف: <span class="gold-text font-bold">シ ᯓᴀʜᴍᴇᴅᯓ シ</span></p>
+    </footer>
+
+    <!-- شريط التنقل السفلي -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" onclick="nav('sec-home', this)">الرئيسية</button>
+        <button class="nav-btn" onclick="nav('sec-anime', this)">الأنمي</button>
+        <button class="nav-btn" onclick="nav('sec-chars', this)">الشخصيات</button>
+        <button class="nav-btn" onclick="nav('sec-tools', this)">الأدوات</button>
+        <button class="nav-btn" onclick="nav('sec-games', this)">الألعاب</button>
+    </nav>
+
+    <!-- ربط ملفات الجافاسكريبت والبيانات -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+/* ==========================================
+   GOJO SATRO KING - MASTER STYLESHEET
+   ========================================== */
+
+/* 1. المتغيرات (Variables) */
+:root {
+    --bg: #05020a;
+    --surface: #110a1f;
+    --primary: #8b5cf6;
+    --primary-hover: #7c3aed;
+    --gold: #fbbf24;
+    --text: #ffffff;
+    --muted: #71717a;
+    --danger: #ef4444;
+    --success: #10b981;
+    --glass-bg: rgba(15, 10, 25, 0.75);
+    --glass-border: rgba(139, 92, 246, 0.25);
+}
+
+[data-theme="light"] {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --primary: #6d28d9;
+    --primary-hover: #5b21b6;
+    --gold: #d97706;
+    --text: #0f172a;
+    --muted: #64748b;
+    --danger: #dc2626;
+    --success: #059669;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(109, 40, 217, 0.2);
+}
+
+/* 2. التهيئة الأساسية */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 3. الخطوط والألوان */
+.title-font {
+    font-family: 'Cinzel', serif;
+}
+
+.gold-text {
+    color: var(--gold);
+    text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+}
+
+/* 4. الخلفية (Particles) */
+#particles-js {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(ellipse at bottom, #1B0B2E 0%, #05020a 100%);
+}
+
+[data-theme="light"] #particles-js {
+    background: radial-gradient(ellipse at bottom, #ddd6fe 0%, #f8fafc 100%);
+}
+
+/* 5. أزرار التحكم العلوية */
+.top-controls {
+    position: fixed;
+    top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.mode-toggle, .profile-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    pointer-events: auto;
+    transition: transform 0.2s;
+}
+
+.mode-toggle:hover, .profile-btn:hover {
+    transform: scale(1.1);
+}
+
+/* 6. الهيدر */
+.main-header {
+    text-align: center;
+    margin-top: 60px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.avatar-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    overflow: hidden;
+    margin-bottom: 15px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+}
+
+.avatar-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-header h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+}
+
+/* 7. المحتوى الرئيسي */
+.main-content {
+    width: 100%;
+    max-width: 1000px;
+    margin: 30px auto 0;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+    flex: 1;
+}
+
+.section {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 100px;
+    animation: fadeIn 0.4s ease;
+}
+
+.section.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+}
+
+/* 8. اللوحات الزجاجية */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 9. الشاشة الرئيسية */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.dash-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dash-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.dash-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* 10. الأنمي */
+.section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 400px;
+    background: var(--surface);
+    border: 1px solid var(--primary);
+    color: var(--text);
+    padding: 12px 20px;
+    border-radius: 50px;
+    outline: none;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+    width: 100%;
+}
+
+.anime-card {
+    background: var(--surface);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+    border: 1px solid transparent;
+}
+
+.anime-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.anime-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.anime-card-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.anime-card-title {
+    font-size: 0.85rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 11. الأزرار */
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.95rem;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--muted);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* 12. الإشعارات */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    background: var(--surface);
+    border-left: 4px solid var(--gold);
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: var(--text);
+    font-size: 0.85rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    animation: slideIn 0.3s ease, fadeOut 0.5s ease 2.5s forwards;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    to { transform: translateY(-20px); opacity: 0; }
+}
+
+/* 13. الدومين إكسبانشن */
+#domain-overlay {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 999999;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#domain-overlay.active {
+    display: flex;
+}
+
+.domain-flash {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.8) 0%, transparent 70%);
+    opacity: 0;
+    animation: flashEffect 2s ease-out forwards;
+}
+
+@keyframes flashEffect {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.5); }
+    100% { opacity: 0; transform: scale(3); }
+}
+
+.domain-text {
+    font-family: 'Cinzel', serif;
+    color: var(--primary);
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+    text-shadow: 0 0 30px var(--primary);
+    opacity: 0;
+    z-index: 10;
+    animation: textFade 1s ease forwards;
+    animation-delay: 1s;
+}
+
+@keyframes textFade {
+    to { opacity: 1; }
+}
+
+/* 14. الشريط السفلي */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav-btn.active {
+    color: var(--gold);
+    transform: translateY(-3px);
+}
+
+/* 15. الفوتر */
+.main-footer {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(0,0,0,0.3);
+    color: var(--muted);
+    font-size: 0.75rem;
+    margin-top: auto;
+}
+
+/* 16. الأدوات */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.tool-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.tool-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.tool-card p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+.result-box {
+    background: #000;
+    color: var(--success);
+    font-family: monospace;
+    font-size: 0.8rem;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px dashed var(--primary);
+    word-break: break-all;
+    text-align: center;
+}
+
+/* 17. الشخصيات */
+.chars-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.char-card {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.char-card:hover {
+    border-color: var(--gold);
+    transform: scale(1.05);
+}
+
+/* 18. الألعاب (الذاكرة) */
+.stats-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.memory-card {
+    aspect-ratio: 1/1;
+    background: var(--surface);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+    color: transparent;
+    user-select: none;
+}
+
+.memory-card.flipped {
+    background: var(--primary);
+    color: white;
+    border-color: var(--gold);
+}
+
+.memory-card.matched {
+    background: var(--gold);
+    color: black;
+    border-color: var(--gold);
+    cursor: default;
+}
+
+/* 19. شاشات الموبايل */
+@media (max-width: 600px) {
+    .main-header h1 { font-size: 1.5rem; }
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .anime-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-title { font-size: 1.4rem; }
+}
+// ==========================================
+// ملف البيانات الشامل - GOJO SATRO KING
+// ==========================================
+
+// 1. قاعدة بيانات الأنمي (50 أنمي مع تفاصيلهم)
+const animeData = [
+    { title: 'جومجتسو كايسن', en: 'Jujutsu Kaisen', img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Jujutsu_Kaisen_volume_1.png', rating: '9.2', episodes: '47', category: 'أكشن، خارق للطبيعة' },
+    { title: 'هجوم العملاق', en: 'Attack on Titan', img: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Shingeki_no_Kyojin_anime_key_visual.png', rating: '9.5', episodes: '87', category: 'أكشن، دراما' },
+    { title: 'قاتل الشياطين', en: 'Demon Slayer', img: 'https://upload.wikimedia.org/wikipedia/en/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba,_volume_1.jpg', rating: '9.0', episodes: '55', category: 'أكشن، خارق' },
+    { title: 'ناروتو', en: 'Naruto', img: 'https://upload.wikimedia.org/wikipedia/en/9/94/NarutoCoverTankobon1.jpg', rating: '8.8', episodes: '220', category: 'أكشن، مغامرة' },
+    { title: 'ون بيس', en: 'One Piece', img: 'https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg', rating: '9.6', episodes: '1000+', category: 'مغامرة، فانتازيا' },
+    { title: 'بليتش', en: 'Bleach', img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Bleach_%28manga%29_volume_1.jpg', rating: '8.7', episodes: '366', category: 'أكشن، خارق' },
+    { title: 'أكاديمية بطلي', en: 'My Hero Academia', img: 'https://upload.wikimedia.org/wikipedia/en/5/5a/My_Hero_Academia_Volume_1.png', rating: '8.5', episodes: '138', category: 'أبطال خارقين' },
+    { title: 'القناص', en: 'Hunter x Hunter', img: 'https://upload.wikimedia.org/wikipedia/en/9/94/Hunter_%C3%97_Hunter_volume_1.jpg', rating: '9.3', episodes: '148', category: 'مغامرة، أكشن' },
+    { title: 'الفولاذ الكامل', en: 'Fullmetal Alchemist', img: 'https://upload.wikimedia.org/wikipedia/en/9/9c/Fullmetal_Alchemist_Brotherhood_volume_1.jpg', rating: '9.4', episodes: '64', category: 'خيال، مغامرة' },
+    { title: 'ون بنش مان', en: 'One Punch Man', img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/One-Punch_Man_volume_1.jpg', rating: '8.9', episodes: '24', category: 'كوميدي، أكشن' },
+    { title: 'ديث نوت', en: 'Death Note', img: 'https://upload.wikimedia.org/wikipedia/en/6/6f/Death_Note_Vol_1.jpg', rating: '9.1', episodes: '37', category: 'غموض، نفسي' },
+    { title: 'طوكيو غول', en: 'Tokyo Ghoul', img: 'https://upload.wikimedia.org/wikipedia/en/2/27/Tokyo_Ghoul_volume_1.jpg', rating: '8.2', episodes: '48', category: 'رعب، أكشن' },
+    { title: 'سورد آرت أونلاين', en: 'Sword Art Online', img: 'https://upload.wikimedia.org/wikipedia/en/6/6c/Sword_Art_Online_Volume_1.jpg', rating: '7.9', episodes: '96', category: 'مغامرة، رومانسي' },
+    { title: 'نو غيم نو لايف', en: 'No Game No Life', img: 'https://upload.wikimedia.org/wikipedia/en/1/1c/No_Game_No_Life_Volume_1.jpg', rating: '8.4', episodes: '12', category: 'فانتازيا، ألعاب' },
+    { title: 'كود غياس', en: 'Code Geass', img: 'https://upload.wikimedia.org/wikipedia/en/4/4a/Code_Geass_volume_1.jpg', rating: '9.0', episodes: '50', category: 'ميكا، دراما' },
+    { title: 'ستاينز غيت', en: 'Steins;Gate', img: 'https://upload.wikimedia.org/wikipedia/en/3/3f/Steins%3BGate_Volume_1.jpg', rating: '9.3', episodes: '24', category: 'خيال علمي، غموض' },
+    { title: 'مذكرة الموت', en: 'Death Parade', img: 'https://upload.wikimedia.org/wikipedia/en/1/1c/Death_Parade.jpg', rating: '8.1', episodes: '12', category: 'نفسي، دراما' },
+    { title: 'هيلسينغ', en: 'Hellsing Ultimate', img: 'https://upload.wikimedia.org/wikipedia/en/7/7e/Hellsing_Ultimate_Volume_1.jpg', rating: '8.6', episodes: '10', category: 'أكشن، رعب' },
+    { title: 'إلفن ليد', en: 'Elfen Lied', img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Elfen_Lied_Volume_1.jpg', rating: '7.8', episodes: '13', category: 'رعب، نفسي' },
+    { title: 'باراسايت', en: 'Parasyte', img: 'https://upload.wikimedia.org/wikipedia/en/1/1c/Parasyte_Volume_1.jpg', rating: '8.3', episodes: '24', category: 'خيال علمي، رعب' },
+    { title: 'أكيرا', en: 'Akira', img: 'https://upload.wikimedia.org/wikipedia/en/8/87/Akira_volume_1.jpg', rating: '8.5', episodes: 'فيلم', category: 'خيال علمي' },
+    { title: 'شبح في الدرع', en: 'Ghost in the Shell', img: 'https://upload.wikimedia.org/wikipedia/en/3/3e/Ghost_in_the_Shell_Volume_1.jpg', rating: '8.7', episodes: 'فيلم', category: 'خيال علمي' },
+    { title: 'كاوبوي بيبوب', en: 'Cowboy Bebop', img: 'https://upload.wikimedia.org/wikipedia/en/3/3c/Cowboy_Bebop_Volume_1.jpg', rating: '9.1', episodes: '26', category: 'خيال علمي، مغامرة' },
+    { title: 'نيون جينيسيس إيفانجيليون', en: 'Evangelion', img: 'https://upload.wikimedia.org/wikipedia/en/1/1b/Neon_Genesis_Evangelion_Volume_1.jpg', rating: '8.9', episodes: '26', category: 'ميكا، نفسي' },
+    { title: 'بلاك كلوفر', en: 'Black Clover', img: 'https://upload.wikimedia.org/wikipedia/en/5/5a/Black_Clover_Volume_1.jpg', rating: '8.2', episodes: '170', category: 'فانتازيا، أكشن' },
+    { title: 'فايري تيل', en: 'Fairy Tail', img: 'https://upload.wikimedia.org/wikipedia/en/9/9e/Fairy_Tail_Volume_1.jpg', rating: '8.0', episodes: '328', category: 'مغامرة، سحر' },
+    { title: 'كونان', en: 'Detective Conan', img: 'https://upload.wikimedia.org/wikipedia/en/9/9e/Detective_Conan_Volume_1.jpg', rating: '8.6', episodes: '1000+', category: 'غموض، جريمة' },
+    { title: 'دراغون بول', en: 'Dragon Ball', img: 'https://upload.wikimedia.org/wikipedia/en/2/2e/Dragon_Ball_Volume_1.jpg', rating: '9.0', episodes: '153', category: 'أكشن، فنون قتال' },
+    { title: 'بوروتو', en: 'Boruto', img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Boruto_Volume_1.jpg', rating: '7.5', episodes: '290+', category: 'أكشن، نينجا' },
+    { title: 'جوجوتسو كايسن 0', en: 'Jujutsu Kaisen 0', img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Jujutsu_Kaisen_volume_1.png', rating: '8.5', episodes: 'فيلم', category: 'أكشن' },
+    { title: 'بلاك لاجون', en: 'Black Lagoon', img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Black_Lagoon_Volume_1.jpg', rating: '8.4', episodes: '24', category: 'أكشن، جريمة' },
+    { title: 'بسيكو باس', en: 'Psycho-Pass', img: 'https://upload.wikimedia.org/wikipedia/en/4/4e/Psycho-Pass_Volume_1.jpg', rating: '8.6', episodes: '22', category: 'خيال علمي، جريمة' },
+    { title: 'أكاتسوكي', en: 'Akatsuki', img: 'https://upload.wikimedia.org/wikipedia/en/9/94/NarutoCoverTankobon1.jpg', rating: '8.8', episodes: 'مختلط', category: 'نينجا' },
+    { title: 'ميراي نيكي', en: 'Mirai Nikki', img: 'https://upload.wikimedia.org/wikipedia/en/2/2e/Mirai_Nikki_Volume_1.jpg', rating: '7.9', episodes: '26', category: 'رعب، نفسي' },
+    { title: 'أنجل بيتس', en: 'Angel Beats', img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Angel_Beats_Volume_1.jpg', rating: '8.2', episodes: '13', category: 'دراما، خارق' },
+    { title: 'كلاناد', en: 'Clannad', img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Clannad_Volume_1.jpg', rating: '8.9', episodes: '23', category: 'دراما، رومانسي' },
+    { title: 'يور ليب', en: 'Your Lie in April', img: 'https://upload.wikimedia.org/wikipedia/en/1/1c/Your_Lie_in_April_Volume_1.jpg', rating: '8.7', episodes: '22', category: 'دراما، موسيقى' },
+    { title: 'أنو هانا', en: 'Anohana', img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Anohana_Volume_1.jpg', rating: '8.3', episodes: '11', category: 'دراما، خارق' },
+    { title: 'فيوليت إيفرغاردن', en: 'Violet Evergarden', img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Violet_Evergarden_Volume_1.jpg', rating: '8.8', episodes: '13', category: 'دراما، فانتازيا' },
+    { title: 'شجرة الفواكه', en: 'Fruits Basket', img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Fruits_Basket_Volume_1.jpg', rating: '8.5', episodes: '63', category: 'دراما، رومانسي' },
+    { title: 'كيميتسو نو يايبا', en: 'Kimetsu no Yaiba', img: 'https://upload.wikimedia.org/wikipedia/en/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba,_volume_1.jpg', rating: '9.0', episodes: '55', category: 'أكشن' },
+    { title: 'هانتر', en: 'Hunter', img: 'https://upload.wikimedia.org/wikipedia/en/9/94/Hunter_%C3%97_Hunter_volume_1.jpg', rating: '9.3', episodes: '148', category: 'مغامرة' },
+    { title: 'بليتش TYBW', en: 'Bleach TYBW', img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Bleach_%28manga%29_volume_1.jpg', rating: '9.2', episodes: '26', category: 'أكشن' },
+    { title: 'هوكاجي', en: 'Hokage', img: 'https://upload.wikimedia.org/wikipedia/en/9/94/NarutoCoverTankobon1.jpg', rating: '8.8', episodes: '220', category: 'نينجا' },
+    { title: 'ون بيس فيلم ريد', en: 'One Piece Film Red', img: 'https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg', rating: '8.4', episodes: 'فيلم', category: 'مغامرة' },
+    { title: 'جوجوتسو سيASON 2', en: 'Jujutsu Kaisen S2', img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Jujutsu_Kaisen_volume_1.png', rating: '9.3', episodes: '23', category: 'أكشن' },
+    { title: 'هجوم العملاق النهائي', en: 'Attack on Titan Final', img: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Shingeki_no_Kyojin_anime_key_visual.png', rating: '9.7', episodes: 'مختلط', category: 'أكشن' },
+    { title: 'سبي إكس فاميلي', en: 'Spy x Family', img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Spy_x_Family_Volume_1.jpg', rating: '8.6', episodes: '37', category: 'كوميدي' },
+    { title: 'شينسيكاي يوري', en: 'Shinseki Yori', img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Shinseki_Yori_Volume_1.jpg', rating: '8.1', episodes: '12', category: 'خيال علمي' },
+    { title: 'بليتش: ذا دايموند داست', en: 'Bleach: Diamond Dust', img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Bleach_%28manga%29_volume_1.jpg', rating: '8.5', episodes: 'فيلم', category: 'أكشن' }
+];
+
+// 2. قاعدة بيانات الشخصيات
+const charData = {
+    'gojo': { 
+        name: 'ساتورو جوجو', 
+        title: 'المبجل', 
+        grade: 'تصنيف خاص', 
+        desc: 'اللانهائي. الفراغ اللامحدود. لا يمكن لمسه. صاحب العيون الستة.', 
+        power: 100, 
+        speed: 95,
+        technique: 'اللانهائي (Infinity)',
+        domain: 'الفراغ اللامحدود (Unlimited Void)'
+    },
+    'sukuna': { 
+        name: 'ريومين سوكونا', 
+        title: 'ملك اللعنات', 
+        grade: 'تصنيف خاص', 
+        desc: 'الضريح الخبيث. التقطيع والتقطيع. أقوى كائن في التاريخ.', 
+        power: 98, 
+        speed: 90,
+        technique: 'التفكيك والتقطيع (Cleave & Dismantle)',
+        domain: 'الضريح الخبيث (Malevolent Shrine)'
+    },
+    'megumi': { 
+        name: 'ميجومي فوشيجورو', 
+        title: 'مستخدم الظلال', 
+        grade: 'درجة أولى', 
+        desc: 'الظلال العشرة. حديقة الظل. مستقبله واعد جداً.', 
+        power: 85, 
+        speed: 80,
+        technique: 'الظلال العشرة (Ten Shadows)',
+        domain: 'حديقة الظل (Chimera Shadow Garden)'
+    },
+    'yuji': { 
+        name: 'يوجي إيتادوري', 
+        title: 'وعاء سوكونا', 
+        grade: 'درجة أولى', 
+        desc: 'الوميض الأسود. قوة بدنية هائلة. لا يستسلم أبداً.', 
+        power: 80, 
+        speed: 85,
+        technique: 'الوميض الأسود (Black Flash)',
+        domain: 'لا يوجد'
+    },
+    'nobara': { 
+        name: 'نوبارا كوجيساكي', 
+        title: 'الساحرة', 
+        grade: 'درجة ثانية', 
+        desc: 'تقنية المطرقة والمسامير. قوية في مواجهة الأرواح الملعونة.', 
+        power: 75, 
+        speed: 70,
+        technique: 'المطرقة والمسامير',
+        domain: 'لا يوجد'
+    },
+    'nanami': { 
+        name: 'كينتو نانامي', 
+        title: 'المحاسب', 
+        grade: 'درجة أولى', 
+        desc: 'تقنية النسبة الذهبية (7:3). عمل كرجل أعمال سابقاً.', 
+        power: 82, 
+        speed: 78,
+        technique: 'النسبة الذهبية (7:3)',
+        domain: 'لا يوجد'
+    }
+};
+
+// 3. قاعدة بيانات السكربتات
+const scriptsData = [
+    { 
+        name: 'DatThg V2 (Auto-Farm)', 
+        desc: 'أقوى سكربت زراعة شامل لجميع الألعاب.',
+        code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaCrack/DatThg/refs/heads/main/DatThgV2"))()' 
+    },
+    { 
+        name: 'Infinite Yield (Admin)', 
+        desc: 'لوحة أوامر أدمن كاملة (طيران، سرعة، أدوات).',
+        code: 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\'))()' 
+    },
+    { 
+        name: 'Universal ESP', 
+        desc: 'رؤية جميع اللاعبين من خلف الجدران.',
+        code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/UniversalESP/Main/main/ESP.lua"))()' 
+    },
+    { 
+        name: 'Blox Fruits Auto-Farm', 
+        desc: 'زراعة الفواكه والفلوس والمستويات.',
+        code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/BloxFruits/Main/main/AutoFarm.lua"))()' 
+    },
+    { 
+        name: 'Da Hood Auto-Farm', 
+        desc: 'زراعة الأموال والأسلحة في لعبة Da Hood.',
+        code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/DaHood/Main/main/Script.lua"))()' 
+    }
+];
+// ==========================================
+// محرك GOJO SATRO KING الأساسي
+// ==========================================
+
+// 1. تهيئة الجسيمات (النجوم في الخلفية)
+window.addEventListener('load', () => {
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": ["#8b5cf6", "#fbbf24", "#ffffff"] },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 2, "random": true },
+                "line_linked": { "enable": false },
+                "move": { "enable": true, "speed": 0.5, "random": true, "out_mode": "out" }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "bubble": { "distance": 100, "size": 4, "duration": 2 }, "push": { "particles_nb": 4 } }
+            },
+            "retina_detect": true
+        });
+    }
+    
+    // تشغيل الموقع الأساسي
+    initApp();
+});
+
+// 2. دالة التشغيل الرئيسية
+function initApp() {
+    renderAnime(animeData);
+    renderChars();
+    renderScripts();
+    loadProfile();
+}
+
+// 3. نظام التنقل بين الأقسام
+function nav(sectionId, btn) {
+    // إخفاء كل الأقسام
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    // إزالة التفعيل من الأزرار
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    
+    // إظهار القسم المطلوب
+    const targetSection = document.getElementById(sectionId);
+    if(targetSection) {
+        targetSection.classList.add('active');
+        if(btn) btn.classList.add('active');
+        window.scrollTo(0,0);
+    }
+}
+
+// 4. نظام التبديل بين الوضع الليلي والنهاري
+function toggleMode() {
+    const body = document.body;
+    const currentTheme = body.getAttribute('data-theme');
+    const toggleBtn = document.getElementById('theme-btn');
+    
+    if(currentTheme === 'dark') {
+        body.setAttribute('data-theme', 'light');
+        if(toggleBtn) toggleBtn.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+    } else {
+        body.setAttribute('data-theme', 'dark');
+        if(toggleBtn) toggleBtn.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// 5. نظام الإشعارات (Toasts)
+function showToast(msg, type = 'success') {
+    const container = document.getElementById('toast-container');
+    if(!container) return;
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    if(type === 'error') toast.style.borderLeftColor = 'var(--danger)';
+    
+    toast.textContent = msg;
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'fadeOut 0.5s ease forwards';
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+
+// 6. وظائف الأنمي
+function renderAnime(data) {
+    const grid = document.getElementById('anime-grid');
+    if(!grid) return;
+    
+    grid.innerHTML = data.map(anime => `
+        <div class="anime-card glass" onclick="openEpisodeModal('${anime.title}')">
+            <img src="${anime.img}" alt="${anime.title}" loading="lazy">
+            <div class="anime-card-info">
+                <h3 class="anime-card-title">${anime.title}</h3>
+                <div class="flex justify-between text-xs mt-1 text-[var(--muted)]">
+                    <span>⭐ ${anime.rating}</span>
+                    <span>${anime.episodes} حلقة</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function searchAnime() {
+    const query = document.getElementById('anime-search').value.toLowerCase();
+    const filtered = animeData.filter(a => 
+        a.title.toLowerCase().includes(query) || 
+        a.en.toLowerCase().includes(query) ||
+        a.category.includes(query)
+    );
+    renderAnime(filtered);
+}
+
+// 7. نظام المودال (النافذة المنبثقة) للأنمي
+let currentAnimeTitle = "";
+
+function openEpisodeModal(title) {
+    currentAnimeTitle = title;
+    const modal = document.getElementById('episode-modal');
+    const modalTitle = document.getElementById('modal-anime-title');
+    const input = document.getElementById('episode-number');
+    
+    if(modal && modalTitle) {
+        modalTitle.innerText = title;
+        input.value = '';
+        modal.classList.add('active');
+    }
+}
+
+function closeModal() {
+    document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+}
+
+// 8. البحث في إيجي ديد
+function searchOnEgyDead() {
+    const epNum = document.getElementById('episode-number').value;
+    if(!epNum) {
+        showToast("الرجاء إدخال رقم الحلقة!", "error");
+        return;
+    }
+    
+    const searchQuery = `انمي ${currentAnimeTitle} الحلقة ${epNum}`;
+    const url = `https://egydead.com/?s=${encodeURIComponent(searchQuery)}`;
+    window.open(url, '_blank');
+    closeModal();
+}
+
+// 9. وظائف الشخصيات
+function renderChars() {
+    const grid = document.getElementById('chars-grid');
+    if(!grid) return;
+    
+    grid.innerHTML = Object.keys(charData).map(key => `
+        <div class="char-card glass" onclick="showCharDetails('${key}')">
+            <div class="w-12 h-12 mx-auto bg-[var(--primary)] rounded-full flex justify-center items-center text-xl mb-2">⚔️</div>
+            <h3 class="font-bold text-sm text-white">${charData[key].name}</h3>
+            <p class="text-xs text-[var(--gold)] mt-1">${charData[key].title}</p>
+        </div>
+    `).join('');
+}
+
+function showCharDetails(id) {
+    const data = charData[id];
+    const details = document.getElementById('char-details');
+    if(!details || !data) return;
+    
+    details.innerHTML = `
+        <div class="flex justify-between items-start mb-4">
+            <div>
+                <h3 class="text-2xl font-bold text-white">${data.name}</h3>
+                <p class="text-sm text-[var(--gold)]">${data.title} - ${data.grade}</p>
+            </div>
+            <button onclick="document.getElementById('char-details').classList.add('hidden')" class="text-red-500 text-xl font-bold">×</button>
+        </div>
+        <p class="text-sm text-gray-300 mb-6 leading-relaxed">${data.desc}</p>
+        
+        <div class="space-y-4">
+            <div>
+                <div class="flex justify-between text-xs mb-1">
+                    <span class="text-white font-bold">القوة</span>
+                    <span class="text-[var(--gold)]">${data.power}%</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-2">
+                    <div class="bg-gradient-to-l from-purple-600 to-[var(--gold)] h-2 rounded-full transition-all duration-1000" style="width: ${data.power}%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-xs mb-1">
+                    <span class="text-white font-bold">السرعة</span>
+                    <span class="text-[var(--gold)]">${data.speed}%</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-2">
+                    <div class="bg-gradient-to-l from-blue-500 to-cyan-400 h-2 rounded-full transition-all duration-1000" style="width: ${data.speed}%"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mt-4 text-xs">
+                <div class="bg-black/40 p-2 rounded border border-gray-700">
+                    <span class="text-[var(--primary)] block mb-1">التقنية:</span>
+                    <span class="text-white">${data.technique}</span>
+                </div>
+                <div class="bg-black/40 p-2 rounded border border-gray-700">
+                    <span class="text-[var(--primary)] block mb-1">المجال:</span>
+                    <span class="text-white">${data.domain}</span>
+                </div>
+            </div>
+        </div>
+    `;
+    details.classList.remove('hidden');
+    details.scrollIntoView({ behavior: 'smooth' });
+}
+
+// 10. وظائف الأدوات
+function renderScripts() {
+    const container = document.getElementById('scripts-list');
+    if(!container) return;
+    
+    container.innerHTML = scriptsData.map((script, index) => `
+        <div class="mb-2">
+            <button onclick="copyScript(${index})" class="w-full text-left bg-black/40 hover:bg-[var(--primary)]/20 border border-gray-700 rounded p-2 transition-colors">
+                <span class="block text-sm font-bold text-white">${script.name}</span>
+                <span class="block text-xs text-gray-400">${script.desc}</span>
+            </button>
+        </div>
+    `).join('');
+}
+
+function genIdentity() {
+    const firstNames = ['Alex', 'Sam', 'John', 'Sarah', 'Mike', 'David', 'Emma', 'Chris'];
+    const lastNames = ['Smith', 'Johnson', 'Brown', 'Lee', 'Walker', 'Hall'];
+    const domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'protonmail.com'];
+    
+    const f = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const l = lastNames[Math.floor(Math.random() * lastNames.length)];
+    const d = domains[Math.floor(Math.random() * domains.length)];
+    const year = Math.floor(Math.random() * (2005 - 1980 + 1)) + 1980;
+    const email = `${f.toLowerCase()}.${l.toLowerCase()}${Math.floor(Math.random() * 99)}@${d}`;
+    const pass = `P@ssw0rd${Math.floor(Math.random() * 9999)}!`;
+
+    const result = `Name: ${f} ${l}\nEmail: ${email}\nPassword: ${pass}\nDOB: ${year}-01-01`;
+    const box = document.getElementById('tool-id-result');
+    if(box) {
+        box.innerText = result;
+        box.classList.remove('hidden');
+    }
+}
+
+function genPassword() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+    let pass = "";
+    for(let i=0; i<16; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
+    
+    const box = document.getElementById('tool-pass-result');
+    if(box) {
+        box.innerText = pass;
+        box.classList.remove('hidden');
+    }
+}
+
+function genColor() {
+    const color = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+    const box = document.getElementById('tool-color-result');
+    if(box) {
+        box.innerText = color;
+        box.style.color = color;
+        box.classList.remove('hidden');
+    }
+}
+
+function copyScript(index) {
+    const script = scriptsData[index].code;
+    navigator.clipboard.writeText(script).then(() => {
+        showToast("تم نسخ السكربت بنجاح!");
+    }).catch(() => {
+        showToast("فشل النسخ. جرب يدوياً.", "error");
+    });
+}
+
+// 11. وظائف الألعاب (الذاكرة)
+let memoryCards = [];
+let flippedCards = [];
+let matchedPairs = 0;
+let moves = 0;
+let isLocked = false;
+
+function initMemoryGame() {
+    const board = document.getElementById('memory-board');
+    if(!board) return;
+    
+    const icons = ['🍎', '🍌', '🍇', '🍓', '🍒', '🍍', '🥝', '🍉'];
+    memoryCards = [...icons, ...icons].sort(() => Math.random() - 0.5);
+    flippedCards = [];
+    matchedPairs = 0;
+    moves = 0;
+    isLocked = false;
+    
+    document.getElementById('memory-moves').innerText = moves;
+    
+    board.innerHTML = memoryCards.map((icon, index) => `
+        <div class="memory-card" data-icon="${icon}" data-index="${index}" onclick="flipMemoryCard(this)"></div>
+    `).join('');
+}
+
+function flipMemoryCard(cardElement) {
+    if(isLocked || cardElement.classList.contains('flipped') || cardElement.classList.contains('matched')) return;
+    
+    cardElement.classList.add('flipped');
+    cardElement.innerText = cardElement.getAttribute('data-icon');
+    flippedCards.push(cardElement);
+    
+    if(flippedCards.length === 2) {
+        moves++;
+        document.getElementById('memory-moves').innerText = moves;
+        checkMemoryMatch();
+    }
+}
+
+function checkMemoryMatch() {
+    const [card1, card2] = flippedCards;
+    const isMatch = card1.getAttribute('data-icon') === card2.getAttribute('data-icon');
+    
+    if(isMatch) {
+        card1.classList.add('matched');
+        card2.classList.add('matched');
+        matchedPairs++;
+        flippedCards = [];
+        
+        if(matchedPairs === 8) {
+            setTimeout(() => {
+                showToast("مبروك! لقد أكملت التحدي!");
+            }, 500);
+        }
+    } else {
+        isLocked = true;
+        setTimeout(() => {
+            card1.classList.remove('flipped');
+            card1.innerText = '';
+            card2.classList.remove('flipped');
+            card2.innerText = '';
+            flippedCards = [];
+            isLocked = false;
+        }, 800);
+    }
+}
+
+function resetMemoryGame() {
+    initMemoryGame();
+    showToast("تم إعادة تشغيل اللعبة!");
+}
+
+// 12. وظائف الدومين إكسبانشن
+function triggerDomain() {
+    const overlay = document.getElementById('domain-overlay');
+    if(!overlay) return;
+    
+    overlay.classList.add('active');
+    showToast("تم تفعيل الدومين إكسبانشن! ⚡");
+    
+    setTimeout(() => {
+        overlay.classList.remove('active');
+    }, 4000);
+}
+
+// 13. الملف الشخصي
+function loadProfile() {
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme) {
+        document.body.setAttribute('data-theme', savedTheme);
+        const toggleBtn = document.getElementById('theme-btn');
+        if(toggleBtn) toggleBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    }
+    
+    const savedName = localStorage.getItem('gojo_user');
+    if(savedName) {
+        const profileName = document.getElementById('profile-name');
+        if(profileName) profileName.innerText = savedName;
+    }
+}
+
+// استدعاء تهيئة اللعبة عند فتح قسم الألعاب
+document.addEventListener('DOMContentLoaded', () => {
+    // تأخير بسيط لضمان تحميل العناصر
+    setTimeout(() => {
+        initMemoryGame();
+    }, 100);
+});
+// ==========================================
+// GOJO SATRO KING - MASSIVE DATABASE (PART 1)
+// ==========================================
+
+// 1. قاعدة بيانات الأنمي (50 أنمي بتفاصيل كاملة)
+const animeData = [
+    { 
+        id: 1, title: 'جومجتسو كايسن', en: 'Jujutsu Kaisen', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Jujutsu_Kaisen_volume_1.png', 
+        rating: '9.2', episodes: '47', year: '2020', studio: 'MAPPA',
+        category: 'أكشن، خارق للطبيعة', 
+        desc: 'يوجي إيتادوري، طالب في المدرسة الثانوية، يبتلع إصبعاً ملعوناً ليصبح وعاءً للشيطان سوكونا. الآن يجب أن يتعلم كيفية القتال في عالم السحر واللعنات.',
+        characters: ['ساتورو جوجو', 'يوجي إيتادوري', 'ميجومي فوشيجورو', 'نوبارا كوجيساكي', 'ريومين سوكونا']
+    },
+    { 
+        id: 2, title: 'هجوم العملاق', en: 'Attack on Titan', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Shingeki_no_Kyojin_anime_key_visual.png', 
+        rating: '9.5', episodes: '87', year: '2013', studio: 'Wit Studio / MAPPA',
+        category: 'أكشن، دراما، فانتازيا مظلمة', 
+        desc: 'بعد تدمير مدينته على يد العمالقة، يتعهد إرين ييجر بالقضاء على كل العمالقة واستعادة الحرية للبشرية، ليكتشف أسراراً مروعة عن العالم.',
+        characters: ['إرين ييجر', 'ميكاسا أكرمان', 'ليفاي أكرمان', 'أرمين أرليرت']
+    },
+    { 
+        id: 3, title: 'قاتل الشياطين', en: 'Demon Slayer', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba,_volume_1.jpg', 
+        rating: '9.0', episodes: '55', year: '2019', studio: 'ufotable',
+        category: 'أكشن، خارق، شونين', 
+        desc: 'تانجيرو كامادو يبحث عن علاج لأخته نيزوكو التي تحولت إلى شيطان، في رحلة مليئة بالمعارك ضد الشياطين.',
+        characters: ['تانجيرو كامادو', 'نيزوكو كامادو', 'زينيتسو أغاتسوما', 'إينوسكي هاشيبيرا']
+    },
+    { 
+        id: 4, title: 'ناروتو', en: 'Naruto', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/94/NarutoCoverTankobon1.jpg', 
+        rating: '8.8', episodes: '220', year: '2002', studio: 'Pierrot',
+        category: 'أكشن، مغامرة، نينجا', 
+        desc: 'ناروتو أوزوماكي، فتى يحمل بداخله ثعلباً شيطاناً، يسعى لأن يصبح الهوكاجي (زعيم القرية) ليكسب احترام الجميع.',
+        characters: ['ناروتو أوزوماكي', 'ساسكي أوتشيها', 'ساكورا هارونو', 'كاكاشي هاتاكي']
+    },
+    { 
+        id: 5, title: 'ون بيس', en: 'One Piece', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg', 
+        rating: '9.6', episodes: '1000+', year: '1999', studio: 'Toei Animation',
+        category: 'مغامرة، فانتازيا، كوميديا', 
+        desc: 'مونكي دي لوفي، قائد قراصنة قبعة القش، يبحث عن الكنز الأعظم "ون بيس" ليصبح ملك القراصنة.',
+        characters: ['مونكي دي لوفي', 'زورو', 'نامي', 'سانجي', 'أوسوب']
+    },
+    { 
+        id: 6, title: 'بليتش', en: 'Bleach', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Bleach_%28manga%29_volume_1.jpg', 
+        rating: '8.7', episodes: '366', year: '2004', studio: 'Pierrot',
+        category: 'أكشن، خارق، شونين', 
+        desc: 'إيتشيغو كوروساكي يكتسب قوى "حاصد الأرواح" بعد لقائه بروكيا، ويصبح مسؤولاً عن حماية البشر من الأرواح الشريرة (الهولوز).',
+        characters: ['إيتشيغو كوروساكي', 'روكيا كوتشيكي', 'أوريو إيشيدا']
+    },
+    { 
+        id: 7, title: 'أكاديمية بطلي', en: 'My Hero Academia', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/5/5a/My_Hero_Academia_Volume_1.png', 
+        rating: '8.5', episodes: '138', year: '2016', studio: 'Bones',
+        category: 'أبطال خارقين، أكشن', 
+        desc: 'إيزوكو ميدوريا، فتى بلا قوى خارقة (Quirk)، يحلم بأن يصبح بطلاً. يلتقي بأقوى بطل "أول مايت" الذي يمنحه قواه.',
+        characters: ['إيزوكو ميدوريا', 'كاتسوكي باكوغو', 'شوتو تودوروكي', 'أول مايت']
+    },
+    { 
+        id: 8, title: 'القناص', en: 'Hunter x Hunter', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/94/Hunter_%C3%97_Hunter_volume_1.jpg', 
+        rating: '9.3', episodes: '148', year: '2011', studio: 'Madhouse',
+        category: 'مغامرة، أكشن، فانتازيا', 
+        desc: 'غون فريكس يبحث عن والده المفقود، ويخوض اختبار "الصيادين" ليكتشف عالماً مليئاً بالمخاطر والأسرار.',
+        characters: ['غون فريكس', 'كيلوا زولديك', 'كورابيكا', 'ليوريو']
+    },
+    { 
+        id: 9, title: 'الفولاذ الكامل', en: 'Fullmetal Alchemist', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/9c/Fullmetal_Alchemist_Brotherhood_volume_1.jpg', 
+        rating: '9.4', episodes: '64', year: '2009', studio: 'Bones',
+        category: 'خيال، مغامرة، دراما', 
+        desc: 'الأخوان إلفريك يبحثان عن حجر الفيلسوف لاستعادة أجسادهما بعد فشل تجربة كيمياء التحويل المحظورة.',
+        characters: ['إدوارد إلفريك', 'ألفونس إلفريك', 'روي موستانغ']
+    },
+    { 
+        id: 10, title: 'ون بنش مان', en: 'One Punch Man', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/One-Punch_Man_volume_1.jpg', 
+        rating: '8.9', episodes: '24', year: '2015', studio: 'Madhouse',
+        category: 'كوميدي، أكشن، أبطال خارقين', 
+        desc: 'سايتاما، بطل خارق يمكنه هزيمة أي عدو بلكمة واحدة، يشعر بالملل من قوته المطلقة ويبحث عن خصم حقيقي.',
+        characters: ['سايتاما', 'جينوس', 'غارو']
+    },
+    { 
+        id: 11, title: 'ديث نوت', en: 'Death Note', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/6/6f/Death_Note_Vol_1.jpg', 
+        rating: '9.1', episodes: '37', year: '2006', studio: 'Madhouse',
+        category: 'غموض، نفسي، جريمة', 
+        desc: 'لايت ياغامي يجد مذكرة موت سحرية تتيح له قتل أي شخص بكتابة اسمه. يبدأ حملة تطهير للعالم، ويتصدى له المحقق L.',
+        characters: ['لايت ياغامي', 'L', 'ميسا أماني', 'ريوك']
+    },
+    { 
+        id: 12, title: 'طوكيو غول', en: 'Tokyo Ghoul', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/2/27/Tokyo_Ghoul_volume_1.jpg', 
+        rating: '8.2', episodes: '48', year: '2014', studio: 'Pierrot',
+        category: 'رعب، أكشن، خارق', 
+        desc: 'كين كانيكي، طالب جامعي، يتحول إلى نصف غول بعد حادث، ويحاول التكيف مع حياته الجديدة بين البشر والغيلان.',
+        characters: ['كين كانيكي', 'توكا كيريشيما']
+    },
+    { 
+        id: 13, title: 'سورد آرت أونلاين', en: 'Sword Art Online', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/6/6c/Sword_Art_Online_Volume_1.jpg', 
+        rating: '7.9', episodes: '96', year: '2012', studio: 'A-1 Pictures',
+        category: 'مغامرة، رومانسي، خيال علمي', 
+        desc: 'لاعبون يعلقون داخل لعبة واقع افتراضي، حيث الموت في اللعبة يعني الموت الحقيقي. كيريتو يجب أن ينهي اللعبة لينقذ الجميع.',
+        characters: ['كيريتو', 'أسونا', 'سيليكا']
+    },
+    { 
+        id: 14, title: 'نو غيم نو لايف', en: 'No Game No Life', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1c/No_Game_No_Life_Volume_1.jpg', 
+        rating: '8.4', episodes: '12', year: '2014', studio: 'Madhouse',
+        category: 'فانتازيا، ألعاب، كوميديا', 
+        desc: 'الأخوان سورا وشيرو، لاعبان أسطوريان، ينقلان إلى عالم حيث كل شيء يحل بالألعاب. يتحديان إله الألعاب.',
+        characters: ['سورا', 'شيرو', 'ستيفاني دولا']
+    },
+    { 
+        id: 15, title: 'كود غياس', en: 'Code Geass', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/4/4a/Code_Geass_volume_1.jpg', 
+        rating: '9.0', episodes: '50', year: '2006', studio: 'Sunrise',
+        category: 'ميكا، دراما، خيال علمي', 
+        desc: 'ليلوخ، أمير منفي، يحصل على قوة "الغياس" التي تجبر أي شخص على طاعته. يقود ثورة ضد الإمبراطورية البريطانية.',
+        characters: ['ليلوخ لامبيروج', 'سوزاكو كوروروجي', 'C.C.']
+    },
+    { 
+        id: 16, title: 'ستاينز غيت', en: 'Steins;Gate', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/3/3f/Steins%3BGate_Volume_1.jpg', 
+        rating: '9.3', episodes: '24', year: '2011', studio: 'White Fox',
+        category: 'خيال علمي، غموض، دراما', 
+        desc: 'أوكابي، عالماً مجنوناً، يكتشف طريقة لإرسال رسائل إلى الماضي. لكن تغيير الماضي له عواقب وخيمة على الحاضر.',
+        characters: ['رينتارو أوكابي', 'كوريسو ماكيسي', 'إيتارو هاشيدا']
+    },
+    { 
+        id: 17, title: 'مذكرة الموت', en: 'Death Parade', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1c/Death_Parade.jpg', 
+        rating: '8.1', episodes: '12', year: '2015', studio: 'Madhouse',
+        category: 'نفسي، دراما، غموض', 
+        desc: 'بعد الموت، يذهب البشر إلى حانة غامضة حيث يلعبون ألعاباً تحدد مصير أرواحهم.',
+        characters: ['ديكيم', 'بلاك']
+    },
+    { 
+        id: 18, title: 'هيلسينغ', en: 'Hellsing Ultimate', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/7/7e/Hellsing_Ultimate_Volume_1.jpg', 
+        rating: '8.6', episodes: '10', year: '2006', studio: 'Madhouse',
+        category: 'أكشن، رعب، خارق', 
+        desc: 'منظمة هيلسينغ تحارب مصاصي الدماء والوحوش. تمتلك سلاحاً سرياً: أليكارد، أقوى مصاص دماء.',
+        characters: ['أليكارد', 'إنتيغرا هيلسينغ', 'سيراس فيكتوريا']
+    },
+    { 
+        id: 19, title: 'إلفن ليد', en: 'Elfen Lied', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Elfen_Lied_Volume_1.jpg', 
+        rating: '7.8', episodes: '13', year: '2004', studio: 'Arms',
+        category: 'رعب، نفسي، دراما', 
+        desc: 'لوسي، فتاة من نوع جديد يسمى "ديكلونيوس"، تهرب من مختبر وتسبب دماراً هائلاً، ثم تفقد ذاكرتها.',
+        characters: ['لوسي', 'كووتا']
+    },
+    { 
+        id: 20, title: 'باراسايت', en: 'Parasyte', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1c/Parasyte_Volume_1.jpg', 
+        rating: '8.3', episodes: '24', year: '2014', studio: 'Madhouse',
+        category: 'خيال علمي، رعب، أكشن', 
+        desc: 'شينيتشي يحصل على كائن فضائي يعيش في يده اليمنى. يجب أن يتعاونا للبقاء على قيد الحياة ضد كائنات أخرى.',
+        characters: ['شينيتشي إيزومي', 'ميجي (اليد اليمنى)']
+    },
+    { 
+        id: 21, title: 'أكيرا', en: 'Akira', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/8/87/Akira_volume_1.jpg', 
+        rating: '8.5', episodes: 'فيلم', year: '1988', studio: 'TMS Entertainment',
+        category: 'خيال علمي، أكشن', 
+        desc: 'في مدينة نيو طوكيو المستقبلية، شاب يكتسب قوى خارقة بعد حادث، مما يهدد بتدمير المدينة.',
+        characters: ['شوتارو كانيدا', 'تيتسو شودا']
+    },
+    { 
+        id: 22, title: 'شبح في الدرع', en: 'Ghost in the Shell', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/3/3e/Ghost_in_the_Shell_Volume_1.jpg', 
+        rating: '8.7', episodes: 'فيلم', year: '1995', studio: 'Production I.G',
+        category: 'خيال علمي، سايبربانك', 
+        desc: 'في عالم يمتزج فيه الإنسان بالآلة، وحدة أمنية تحقق في جرائم إلكترونية وجرائم قتل غامضة.',
+        characters: ['موتوكو كوساناغي', 'باتو']
+    },
+    { 
+        id: 23, title: 'كاوبوي بيبوب', en: 'Cowboy Bebop', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/3/3c/Cowboy_Bebop_Volume_1.jpg', 
+        rating: '9.1', episodes: '26', year: '1998', studio: 'Sunrise',
+        category: 'خيال علمي، مغامرة، أكشن', 
+        desc: 'مجموعة من صائدي المكافآت يسافرون عبر الفضاء بحثاً عن مجرمين، مع موسيقى جاز رائعة.',
+        characters: ['سبايك شبيغل', 'فاي فالنتاين', 'جيت بلاك']
+    },
+    { 
+        id: 24, title: 'نيون جينيسيس إيفانجيليون', en: 'Evangelion', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1b/Neon_Genesis_Evangelion_Volume_1.jpg', 
+        rating: '8.9', episodes: '26', year: '1995', studio: 'Gainax',
+        category: 'ميكا، نفسي، دراما', 
+        desc: 'في عالم ما بعد الكارثة، مراهقون يقودون آلات عملاقة (Evas) لمواجهة كائنات غامضة تُعرف بالملائكة.',
+        characters: ['شينجي إيكاري', 'أسوكا لانغلي', 'ريه أيانامي']
+    },
+    { 
+        id: 25, title: 'بلاك كلوفر', en: 'Black Clover', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/5/5a/Black_Clover_Volume_1.jpg', 
+        rating: '8.2', episodes: '170', year: '2017', studio: 'Pierrot',
+        category: 'فانتازيا، أكشن، شونين', 
+        desc: 'في عالم يسكنه السحر، أستا، فتى ولد بلا سحر، يصر على أن يصبح إمبراطور السحر.',
+        characters: ['أستا', 'يوتو سوكيهيرو', 'يوليوس نوفاكرونو']
+    },
+    { 
+        id: 26, title: 'فايري تيل', en: 'Fairy Tail', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/9e/Fairy_Tail_Volume_1.jpg', 
+        rating: '8.0', episodes: '328', year: '2009', studio: 'A-1 Pictures',
+        category: 'مغامرة، سحر، أكشن', 
+        desc: 'ناتسو دراغونيل، ساحر النار، وعضو في نقابة Fairy Tail، يخوض مغامرات مع أصدقائه.',
+        characters: ['ناتسو دراغونيل', 'لوسي هارتفيليا', 'إرزا سكارليت']
+    },
+    { 
+        id: 27, title: 'كونان', en: 'Detective Conan', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/9e/Detective_Conan_Volume_1.jpg', 
+        rating: '8.6', episodes: '1000+', year: '1996', studio: 'TMS Entertainment',
+        category: 'غموض، جريمة، مغامرة', 
+        desc: 'شينيتشي كودو، محقق ثانوي، يتحول إلى طفل بعد إعطائه عقاراً غامضاً، ويستمر في حل الجرائم تحت اسم كونان.',
+        characters: ['شينيتشي كودو (كونان)', 'ران موري', 'كايتو كيد']
+    },
+    { 
+        id: 28, title: 'دراغون بول', en: 'Dragon Ball', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/2/2e/Dragon_Ball_Volume_1.jpg', 
+        rating: '9.0', episodes: '153', year: '1986', studio: 'Toei Animation',
+        category: 'أكشن، فنون قتال، مغامرة', 
+        desc: 'سون غوكو، يبحث عن كرات التنين السحرية، ويواجه أعداء أقوياء في طريقه.',
+        characters: ['سون غوكو', 'كريلين', 'بيجيتا']
+    },
+    { 
+        id: 29, title: 'بوروتو', en: 'Boruto', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Boruto_Volume_1.jpg', 
+        rating: '7.5', episodes: '290+', year: '2017', studio: 'Pierrot',
+        category: 'أكشن، نينجا، مغامرة', 
+        desc: 'بوروتو أوزوماكي، ابن ناروتو، يسعى لترك بصمته الخاصة في عالم النينجا.',
+        characters: ['بوروتو أوزوماكي', 'سارادا أوتشيها', 'ميتسوكي']
+    },
+    { 
+        id: 30, title: 'جوجوتسو كايسن 0', en: 'Jujutsu Kaisen 0', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Jujutsu_Kaisen_volume_1.png', 
+        rating: '8.5', episodes: 'فيلم', year: '2021', studio: 'MAPPA',
+        category: 'أكشن، خارق', 
+        desc: 'يوتا أوكوتسو، طالب يحمل روح صديقته الملعونة، ينضم إلى مدرسة جوجوتسو ليتعلم التحكم فيها.',
+        characters: ['يوتا أوكوتسو', 'ساتورو جوجو', 'ريكا أوريموتو']
+    },
+    { 
+        id: 31, title: 'بلاك لاجون', en: 'Black Lagoon', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Black_Lagoon_Volume_1.jpg', 
+        rating: '8.4', episodes: '24', year: '2006', studio: 'Madhouse',
+        category: 'أكشن، جريمة، مغامرة', 
+        desc: 'رجل أعمال يختطف من قبل قراصنة، وينضم إليهم في عالم الجريمة في جنوب شرق آسيا.',
+        characters: ['روك', 'ريفاي', 'داتش']
+    },
+    { 
+        id: 32, title: 'بسيكو باس', en: 'Psycho-Pass', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/4/4e/Psycho-Pass_Volume_1.jpg', 
+        rating: '8.6', episodes: '22', year: '2012', studio: 'Production I.G',
+        category: 'خيال علمي، جريمة، نفسي', 
+        desc: 'في مستقبل حيث يمكن قياس الروح البشرية كمياً، تحقق وحدة أمنية في جرائم قبل حدوثها.',
+        characters: ['أكاني تسونيموري', 'شينيا كوغامي']
+    },
+    { 
+        id: 33, title: 'أكاتسوكي', en: 'Akatsuki', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/94/NarutoCoverTankobon1.jpg', 
+        rating: '8.8', episodes: 'مختلط', year: '2002', studio: 'Pierrot',
+        category: 'نينجا، أكشن', 
+        desc: 'قصة منظمة الأكاتسوكي الشريرة في عالم ناروتو، وأهدافهم الغامضة.',
+        characters: ['إيتاتشي أوتشيها', 'بين', 'ناغاتو']
+    },
+    { 
+        id: 34, title: 'ميراي نيكي', en: 'Mirai Nikki', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/2/2e/Mirai_Nikki_Volume_1.jpg', 
+        rating: '7.9', episodes: '26', year: '2011', studio: 'Asread',
+        category: 'رعب، نفسي، أكشن', 
+        desc: 'يوكي، فتى خجول، يجد نفسه في لعبة قاتلة حيث يجب أن يقتل المشاركين الآخرين للبقاء على قيد الحياة.',
+        characters: ['يوكي أمانو', 'يuno غاساي']
+    },
+    { 
+        id: 35, title: 'أنجل بيتس', en: 'Angel Beats', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Angel_Beats_Volume_1.jpg', 
+        rating: '8.2', episodes: '13', year: '2010', studio: 'P.A. Works',
+        category: 'دراما، خارق، مدرسي', 
+        desc: 'في عالم ما بعد الموت، طلاب يقاتلون "الملاك" لرفض مصيرهم.',
+        characters: ['أويامادا', 'يوري', 'كانادي']
+    },
+    { 
+        id: 36, title: 'كلاناد', en: 'Clannad', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Clannad_Volume_1.jpg', 
+        rating: '8.9', episodes: '23', year: '2007', studio: 'Kyoto Animation',
+        category: 'دراما، رومانسي', 
+        desc: 'تومويا، طالب ثانوي، يلتقي بفتاة غامضة، ويبدأ في مساعدتها وتكوين صداقات.',
+        characters: ['تومويا أوكازاكي', 'ناغيسا فوروكاوا']
+    },
+    { 
+        id: 37, title: 'يور ليب', en: 'Your Lie in April', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1c/Your_Lie_in_April_Volume_1.jpg', 
+        rating: '8.7', episodes: '22', year: '2014', studio: 'A-1 Pictures',
+        category: 'دراما، موسيقى، رومانسي', 
+        desc: 'عازف بيانو موهوب فقد القدرة على سماع العزف، يلتقي بعازفة كمان تغير حياته.',
+        characters: ['كوسي أريما', 'كاوري ميازونو']
+    },
+    { 
+        id: 38, title: 'أنو هانا', en: 'Anohana', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Anohana_Volume_1.jpg', 
+        rating: '8.3', episodes: '11', year: '2011', studio: 'A-1 Pictures',
+        category: 'دراما، خارق، مدرسي', 
+        desc: 'مجموعة أصدقاء فقدوا صديقتهم في حادث، يعود شبحها لتحقيق أمنيتها الأخيرة.',
+        characters: ['جينتا', 'مينما', 'أنارو']
+    },
+    { 
+        id: 39, title: 'فيوليت إيفرغاردن', en: 'Violet Evergarden', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Violet_Evergarden_Volume_1.jpg', 
+        rating: '8.8', episodes: '13', year: '2018', studio: 'Kyoto Animation',
+        category: 'دراما، فانتازيا', 
+        desc: 'فيوليت، جندية سابقة، تصبح "كاتبة رسائل" لتفهم مشاعر البشر بعد الحرب.',
+        characters: ['فيوليت إيفرغاردن', 'غيلبرت بوفوجليا']
+    },
+    { 
+        id: 40, title: 'شجرة الفواكه', en: 'Fruits Basket', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Fruits_Basket_Volume_1.jpg', 
+        rating: '8.5', episodes: '63', year: '2019', studio: 'TMS Entertainment',
+        category: 'دراما، رومانسي، خارق', 
+        desc: 'توهرو هوندا تكتشف سر عائلة سوهما: يتحولون إلى حيوانات الأبراج عند معانقتهم.',
+        characters: ['توهرو هوندا', 'كيو سوهما', 'يوكي سوهما']
+    },
+    { 
+        id: 41, title: 'كيميتسو نو يايبا', en: 'Kimetsu no Yaiba', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/0/09/Demon_Slayer_-_Kimetsu_no_Yaiba,_volume_1.jpg', 
+        rating: '9.0', episodes: '55', year: '2019', studio: 'ufotable',
+        category: 'أكشن، خارق', 
+        desc: 'قصة مشابهة لقاتل الشياطين (تكرار للاسم الياباني).',
+        characters: ['تانجيرو', 'نيزوكو']
+    },
+    { 
+        id: 42, title: 'هانتر', en: 'Hunter', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/94/Hunter_%C3%97_Hunter_volume_1.jpg', 
+        rating: '9.3', episodes: '148', year: '2011', studio: 'Madhouse',
+        category: 'مغامرة، أكشن', 
+        desc: 'غون يبحث عن والده الصياد الأسطوري.',
+        characters: ['غون', 'كيلوا']
+    },
+    { 
+        id: 43, title: 'بليتش TYBW', en: 'Bleach TYBW', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Bleach_%28manga%29_volume_1.jpg', 
+        rating: '9.2', episodes: '26', year: '2022', studio: 'Pierrot',
+        category: 'أكشن، خارق', 
+        desc: 'الموسم الأخير من بليتش، معركة ضد كوينسي.',
+        characters: ['إيتشيغو', 'يوهباخ']
+    },
+    { 
+        id: 44, title: 'هوكاجي', en: 'Hokage', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/94/NarutoCoverTankobon1.jpg', 
+        rating: '8.8', episodes: '220', year: '2002', studio: 'Pierrot',
+        category: 'نينجا', 
+        desc: 'قصة ناروتو للوصول لمنصب الهوكاجي.',
+        characters: ['ناروتو', 'ساسكي']
+    },
+    { 
+        id: 45, title: 'ون بيس فيلم ريد', en: 'One Piece Film Red', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/9/90/One_Piece%2C_Volume_61_Cover_%28Japanese%29.jpg', 
+        rating: '8.4', episodes: 'فيلم', year: '2022', studio: 'Toei Animation',
+        category: 'مغامرة، موسيقى', 
+        desc: 'لوفي وفريقه يلتقون بأوتا، مغنية مشهورة عالمياً.',
+        characters: ['لوفي', 'أوتا', 'شانكس']
+    },
+    { 
+        id: 46, title: 'جوجوتسو سيASON 2', en: 'Jujutsu Kaisen S2', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Jujutsu_Kaisen_volume_1.png', 
+        rating: '9.3', episodes: '23', year: '2023', studio: 'MAPPA',
+        category: 'أكشن، خارق', 
+        desc: 'أحداث شيبويا، المعركة الأكبر في جوجوتسو.',
+        characters: ['جوجو', 'سوكونا', 'يوجي']
+    },
+    { 
+        id: 47, title: 'هجوم العملاق النهائي', en: 'Attack on Titan Final', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Shingeki_no_Kyojin_anime_key_visual.png', 
+        rating: '9.7', episodes: 'مختلط', year: '2023', studio: 'MAPPA',
+        category: 'أكشن، دراما', 
+        desc: 'الموسم النهائي، معر
+          { 
+        id: 47, title: 'هجوم العملاق النهائي', en: 'Attack on Titan Final', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Shingeki_no_Kyojin_anime_key_visual.png', 
+        rating: '9.7', episodes: 'مختلط', year: '2023', studio: 'MAPPA',
+        category: 'أكشن، دراما', 
+        desc: 'الموسم النهائي، معركة إرين ضد العالم بأسره.',
+        characters: ['إرين', 'ميكاسا', 'أرمين', 'ليفاي']
+    },
+    { 
+        id: 48, title: 'سبي إكس فاميلي', en: 'Spy x Family', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Spy_x_Family_Volume_1.jpg', 
+        rating: '8.6', episodes: '37', year: '2022', studio: 'Wit Studio / CloverWorks',
+        category: 'كوميدي، أكشن', 
+        desc: 'جاسوس يتزوج قاتلة، ويتبنيان فتاة تقرأ الأفكار، لتكوين عائلة وهمية.',
+        characters: ['لوييد فورجر', 'يور فورجر', 'أنيا فورجر']
+    },
+    { 
+        id: 49, title: 'شينسيكاي يوري', en: 'Shinseki Yori', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Shinseki_Yori_Volume_1.jpg', 
+        rating: '8.1', episodes: '12', year: '2022', studio: 'Studio Deen',
+        category: 'خيال علمي، دراما', 
+        desc: 'قصة خيال علمي عن العلاقات البشرية في عالم متقدم.',
+        characters: ['شخصية 1', 'شخصية 2']
+    },
+    { 
+        id: 50, title: 'بليتش: ذا دايموند داست', en: 'Bleach: Diamond Dust', 
+        img: 'https://upload.wikimedia.org/wikipedia/en/2/2f/Bleach_%28manga%29_volume_1.jpg', 
+        rating: '8.5', episodes: 'فيلم', year: '2006', studio: 'Pierrot',
+        category: 'أكشن، خارق', 
+        desc: 'فيلم بليتش، يواجه إيتشيغو عدوًا جديدًا بقوى جليدية.',
+        characters: ['إيتشيغو', 'روكيا', 'هيتسوغايا']
+    }
+];
+
+// ==========================================
+// 2. قاعدة بيانات الشخصيات (30 شخصية)
+// ==========================================
+const charData = {
+    // جوجوتسو
+    'gojo': { name: 'ساتورو جوجو', title: 'المبجل', grade: 'تصنيف خاص', desc: 'اللانهائي. الفراغ اللامحدود.', power: 100, speed: 95, technique: 'اللانهائي', domain: 'الفراغ اللامحدود' },
+    'sukuna': { name: 'ريومين سوكونا', title: 'ملك اللعنات', grade: 'تصنيف خاص', desc: 'الضريح الخبيث. التقطيع.', power: 98, speed: 90, technique: 'التفكيك', domain: 'الضريح الخبيث' },
+    'megumi': { name: 'ميجومي فوشيجورو', title: 'مستخدم الظلال', grade: 'درجة أولى', desc: 'الظلال العشرة.', power: 85, speed: 80, technique: 'الظلال العشرة', domain: 'حديقة الظل' },
+    'yuji': { name: 'يوجي إيتادوري', title: 'وعاء سوكونا', grade: 'درجة أولى', desc: 'الوميض الأسود.', power: 80, speed: 85, technique: 'الوميض الأسود', domain: 'لا يوجد' },
+    'nobara': { name: 'نوبارا كوجيساكي', title: 'الساحرة', grade: 'درجة ثانية', desc: 'المطرقة والمسامير.', power: 75, speed: 70, technique: 'المطرقة والمسامير', domain: 'لا يوجد' },
+    'nanami': { name: 'كينتو نانامي', title: 'المحاسب', grade: 'درجة أولى', desc: 'النسبة الذهبية.', power: 82, speed: 78, technique: 'النسبة الذهبية', domain: 'لا يوجد' },
+    
+    // ناروتو
+    'naruto': { name: 'ناروتو أوزوماكي', title: 'الهوكاجي السابع', grade: 'جينين', desc: 'يحمل الكيوبي بداخله.', power: 95, speed: 90, technique: 'راسينغان', domain: 'لا يوجد' },
+    'sasuke': { name: 'ساسكي أوتشيها', title: 'الظل', grade: 'جينين', desc: 'الرانينغان.', power: 94, speed: 95, technique: 'تشيدوري', domain: 'لا يوجد' },
+    'itachi': { name: 'إيتاتشي أوتشيها', title: 'العبقري', grade: 'أنبو', desc: 'الغينجيتسو.', power: 90, speed: 88, technique: 'أماتيراسو', domain: 'تسوكويومي' },
+    'madara': { name: 'مادارا أوتشيها', title: 'أسطورة', grade: 'جينين', desc: 'الرانينغان.', power: 96, speed: 92, technique: 'سوسانو', domain: 'لا يوجد' },
+    'kakashi': { name: 'كاكاشي هاتاكي', title: 'النسخة', grade: 'جونين', desc: 'الشارينغان.', power: 85, speed: 86, technique: 'كاموي', domain: 'لا يوجد' },
+    
+    // هجوم العملاق
+    'eren': { name: 'إرين ييغر', title: 'الهجومي', grade: 'جندي', desc: 'مؤسس العمالقة.', power: 98, speed: 85, technique: 'تيتان', domain: 'لا يوجد' },
+    'levi': { name: 'ليفاي أكرمان', title: 'أقوى جندي', grade: 'كابتن', desc: 'سرعة خارقة.', power: 92, speed: 99, technique: 'أكرمان', domain: 'لا يوجد' },
+    'mikasa': { name: 'ميكاسا أكرمان', title: 'الجندية', grade: 'جندي', desc: 'قوة أكرمان.', power: 88, speed: 90, technique: 'أكرمان', domain: 'لا يوجد' },
+    
+    // ديمون سلاير
+    'tanjiro': { name: 'تانجيرو كامادو', title: 'قاتل الشياطين', grade: 'هاشيرا', desc: 'تنفس الماء.', power: 85, speed: 82, technique: 'تنفس الشمس', domain: 'لا يوجد' },
+    'zenitsu': { name: 'زينيتسو أغاتسوما', title: 'البرق', grade: 'قاتل', desc: 'سرعة البرق.', power: 80, speed: 95, technique: 'تنفس البرق', domain: 'لا يوجد' },
+    'inosuke': { name: 'إينوسكي هاشيبيرا', title: 'الوحش', grade: 'قاتل', desc: 'قوة بدنية هائلة.', power: 82, speed: 80, technique: 'تنفس الوحش', domain: 'لا يوجد' },
+    
+    // بليتش
+    'ichigo': { name: 'إيتشيغو كوروساكي', title: 'حاصد الأرواح', grade: 'قائد', desc: 'قوة هجينة.', power: 93, speed: 91, technique: 'غيتسوغا تينشو', domain: 'لا يوجد' },
+    'aizen': { name: 'سوسكي أيزن', title: 'الخائن', grade: 'قائد', desc: 'الكيودو.', power: 97, speed: 89, technique: 'كيوكا سوغيستو', domain: 'لا يوجد' },
+    
+    // ون بيس
+    'luffy': { name: 'مونكي دي لوفي', title: 'ملك القراصنة', grade: 'كابتن', desc: 'قوة الشيطان.', power: 95, speed: 90, technique: 'غومو غومو نو مي', domain: 'لا يوجد' },
+    'zoro': { name: 'رورونوا زورو', title: 'صائد القراصنة', grade: 'نائب', desc: 'السيف.', power: 90, speed: 88, technique: 'سانتوري', domain: 'لا يوجد' },
+    'sanji': { name: 'سانجي', title: 'الساق السوداء', grade: 'طاهي', desc: 'الركلات.', power: 88, speed: 92, technique: 'ديفل جامبي', domain: 'لا يوجد' },
+    
+    // دراغون بول
+    'goku': { name: 'سون غوكو', title: 'سوبر سايان', grade: 'مقاتل', desc: 'الكاميهاميها.', power: 100, speed: 98, technique: 'الكاميهاميها', domain: 'لا يوجد' },
+    'vegeta': { name: 'بيجيتا', title: 'أمير السايان', grade: 'مقاتل', desc: 'الغاليك غان.', power: 98, speed: 96, technique: 'الغاليك غان', domain: 'لا يوجد' },
+    
+    // ديث نوت
+    'light': { name: 'لايت ياغامي', title: 'كيراً', grade: 'طالب', desc: 'مذكرة الموت.', power: 10, speed: 10, technique: 'مذكرة الموت', domain: 'لا يوجد' },
+    'l': { name: 'إل', title: 'المحقق', grade: 'مجهول', desc: 'العبقرية.', power: 10, speed: 10, technique: 'الذكاء', domain: 'لا يوجد' },
+    
+    // أكاديمية بطلي
+    'deku': { name: 'إيزوكو ميدوريا', title: 'ديكو', grade: 'طالب', desc: 'ون فور أول.', power: 88, speed: 85, technique: 'ون فور أول', domain: 'لا يوجد' },
+    'bakugo': { name: 'كاتسوكي باكوغو', title: 'الانفجاري', grade: 'طالب', desc: 'الانفجارات.', power: 87, speed: 89, technique: 'الانفجارات', domain: 'لا يوجد' },
+    
+    // إيفانجيليون
+    'shinji': { name: 'شينجي إيكاري', title: 'طيار', grade: 'مبتدئ', desc: 'إيفا 01.', power: 80, speed: 75, technique: 'إيفا', domain: 'لا يوجد' }
+};
+
+// ==========================================
+// 3. قاعدة بيانات السكربتات (20 سكربت)
+// ==========================================
+const scriptsData = [
+    { name: 'DatThg V2 (Auto-Farm)', desc: 'زراعة شاملة لجميع الألعاب.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/LuaCrack/DatThg/refs/heads/main/DatThgV2"))()' },
+    { name: 'Infinite Yield (Admin)', desc: 'لوحة أوامر أدمن كاملة.', code: 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\'))()' },
+    { name: 'Universal ESP', desc: 'رؤية اللاعبين خلف الجدران.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/UniversalESP/Main/main/ESP.lua"))()' },
+    { name: 'Blox Fruits Auto-Farm', desc: 'زراعة فواكه وفلوس.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/BloxFruits/Main/main/AutoFarm.lua"))()' },
+    { name: 'Da Hood Auto-Farm', desc: 'زراعة أموال وأسلحة.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/DaHood/Main/main/Script.lua"))()' },
+    { name: 'Arsenal Aimbot', desc: 'تصويب تلقائي (Aimbot).', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Arsenal/Main/main/Aimbot.lua"))()' },
+    { name: 'Jailbreak Auto-Rob', desc: 'سرقة تلقائية.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Jailbreak/Main/main/AutoRob.lua"))()' },
+    { name: 'Murder Mystery 2 ESP', desc: 'كشف القاتل والشريف.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/MM2/Main/main/ESP.lua"))()' },
+    { name: 'Pet Simulator X Auto', desc: 'زراعة البيض والحيوانات.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/PetSim/Main/main/Auto.lua"))()' },
+    { name: 'Adopt Me Auto', desc: 'زراعة الحيوانات.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AdoptMe/Main/main/Auto.lua"))()' },
+    { name: 'Tower of Hell Auto', desc: 'تسلق تلقائي.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/TOH/Main/main/Auto.lua"))()' },
+    { name: 'Doors Script', desc: 'كشف الأبواب والأدوات.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Doors/Main/main/Script.lua"))()' },
+    { name: 'Bee Swarm Simulator', desc: 'زراعة العسل.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/BeeSwarm/Main/main/Auto.lua"))()' },
+    { name: 'Anime Vanguards', desc: 'زراعة تلقائية.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AnimeVanguard/Main/main/Auto.lua"))()' },
+    { name: 'All Star Tower Defense', desc: 'زراعة الأموال والوحدات.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/ASTD/Main/main/Auto.lua"))()' },
+    { name: 'Jujutsu Shenanigans', desc: 'سكربت مهارات.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/JJS/Main/main/Script.lua"))()' },
+    { name: 'Anime Dimensions', desc: 'زراعة المستويات.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AD/Main/main/Auto.lua"))()' },
+    { name: 'Project Slayers', desc: 'زراعة تلقائية.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Slayers/Main/main/Auto.lua"))()' },
+    { name: 'Demon Slayer RPG', desc: 'سكربت شامل.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/DSRPG/Main/main/Script.lua"))()' },
+    { name: 'Fruit Battlegrounds', desc: 'زراعة وتطوير.', code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/FruitBG/Main/main/Auto.lua"))()' }
+];
